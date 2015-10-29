@@ -12,28 +12,7 @@
 <html>
     <head>
         <title>Login</title>
-        <script>
-	$("document").ready(function(){
-	    $("#filesect").change(function() {
-	    //archivo, ext, nombre, size
-	    	var file = $("#filesect").files[0];
-
-	    	var reader = new FileReader();
-            reader.onload = (function(e) {
-                var archi = e.target.result + "";
-                $("#archivo").value=archi;
-                document.getElementById("submitbutton").hidden = false;
-            });
-            document.getElementById("submitbutton").hidden = true;
-            reader.readAsDataURL(file); 
-
-	    	$("#ext").val(""+file.name.split('.').pop());
-	    	$("#nombre").val(""+file.name);
-	    	$("#size").val(""+file.size);
-
-	    });
-	});
-</script>
+       
     </head>
     <body>
         <s:form action="loginaction">

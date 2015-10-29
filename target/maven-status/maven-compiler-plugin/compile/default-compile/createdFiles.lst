@@ -1,11 +1,3 @@
-mx\itesm\maven\struts2\actions\RegisterDao.class
-mx\itesm\maven\struts2\actions\Links.class
 mx\itesm\maven\struts2\actions\RegisterAction.class
-mx\itesm\maven\struts2\actions\Save.class
-mx\itesm\maven\struts2\actions\Updates.class
-mx\itesm\maven\struts2\actions\Mybean.class
-mx\itesm\maven\struts2\actions\Registro.class
-mx\itesm\maven\struts2\actions\Display.class
+mx\itesm\maven\struts2\actions\RegisterDao.class
 mx\itesm\maven\struts2\actions\LoginAction.class
-mx\itesm\maven\struts2\actions\Delete.class
-mx\itesm\maven\struts2\actions\Update.class
