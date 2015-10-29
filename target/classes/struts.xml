@@ -26,5 +26,11 @@
             <result name="success">/success.jsp</result>
             <result name="error">/success.jsp</result>
         </action>
+        <action name="deleteaction" 
+                class="mx.itesm.maven.struts2.actions.DeleteAction"
+                method="execute">
+            <result name="success">/success.jsp</result>
+            <result name="error">/success.jsp</result>
+        </action>
     </package>
 </struts>

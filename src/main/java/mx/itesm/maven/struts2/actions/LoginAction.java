@@ -11,12 +11,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 
 public class LoginAction extends ActionSupport {
 
     private String user;
     private String password;
     private String name;
+
+    ArrayList<BeanArchivo> list = new ArrayList<BeanArchivo>();
+
+    public ArrayList<BeanArchivo> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<BeanArchivo> list) {
+        this.list = list;
+    }
 
     public String execute() {
         String ret = ERROR;
@@ -48,7 +59,33 @@ public class LoginAction extends ActionSupport {
                 }
             }
         }
+        Desplegar();
         return ret;
+    }
+
+    void Desplegar() {
+        try {
+            String URL = "jdbc:mysql://localhost/struts_tutorial";
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, "root", "");
+
+            PreparedStatement ps = con.prepareStatement("select * from archivos where user='"+user+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                BeanArchivo archivo = new BeanArchivo();
+                archivo.setNombre(rs.getString(1));
+                archivo.setExt(rs.getString(2));
+                archivo.setSize(rs.getString(3));
+                archivo.setArchivo(rs.getString(4));
+                archivo.setUser(rs.getString(5));
+                list.add(archivo);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUser() {

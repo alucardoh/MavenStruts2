@@ -5,29 +5,21 @@
  */
 package mx.itesm.maven.struts2.actions;
 
-import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 
 /**
  *
  * @author rodrigo
  */
-public class UploadAction extends ActionSupport {
+public class DeleteAction extends ActionSupport {
 
-    private String nombre, ext, size, archivo, user, name, delete;
-
-    public String getDelete() {
-        return delete;
-    }
-
-    public void setDelete(String delete) {
-        this.delete = delete;
-    }
-
+    private String user, name, delete;
+    
     ArrayList<BeanArchivo> list = new ArrayList<BeanArchivo>();
 
     public ArrayList<BeanArchivo> getList() {
@@ -38,19 +30,27 @@ public class UploadAction extends ActionSupport {
         this.list = list;
     }
 
-//setters and getters  
-    public String execute() {
-        int i = UploadDao.save(this);;
-
-        Desplegar();
-
-        if (i > 0) {
-            return "success";
-        }
-
-        return "error";
+    public DeleteAction() {
     }
 
+    public String execute() {
+        
+        try {
+            String URL = "jdbc:mysql://localhost/struts_tutorial";
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, "root", "");
+            PreparedStatement ps = con.prepareStatement("delete from archivos where user='" + user
+                    + "' and nombre = '" + delete + "'");
+            ps.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Desplegar();
+            return ERROR;
+        }
+        Desplegar();
+        return SUCCESS;
+    }
 
     void Desplegar() {
         try {
@@ -77,38 +77,6 @@ public class UploadAction extends ActionSupport {
         }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getExt() {
-        return ext;
-    }
-
-    public void setExt(String ext) {
-        this.ext = ext;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getArchivo() {
-        return archivo;
-    }
-
-    public void setArchivo(String archivo) {
-        this.archivo = archivo;
-    }
-
     public String getUser() {
         return user;
     }
@@ -123,6 +91,14 @@ public class UploadAction extends ActionSupport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDelete() {
+        return delete;
+    }
+
+    public void setDelete(String delete) {
+        this.delete = delete;
     }
 
 }

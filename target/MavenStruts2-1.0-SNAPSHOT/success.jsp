@@ -10,27 +10,27 @@
     <head>
         <title>Successful Login</title>
         <script>
-            $("document").ready(function () {
-                $("#filesect").change(function () {
-                    //archivo, ext, nombre, size
-                    var file = $("#filesect").files[0];
-
+            window.onload = function () {
+                document.getElementById("submitbutton").hidden = true;
+                var input = document.getElementById('fileselect');
+                var nombre = "";
+                var size = 0;
+                input.addEventListener('change', function () {
+                    var archive = document.getElementById("fileselect").files[0];
                     var reader = new FileReader();
                     reader.onload = (function (e) {
                         var archi = e.target.result + "";
-                        $("#archivo").val(""+archi);
+                        //document.getElementById("archivo").value = "123";
+                        document.getElementById("archivo").value = archi;
                         document.getElementById("submitbutton").hidden = false;
-                        alert("Ya se cargó el archivo.")
                     });
-                    document.getElementById("submitbutton").hidden = true;
-                    reader.readAsDataURL(file);
-
-                    $("#ext").val("" + file.name.split('.').pop());
-                    $("#nombre").val("" + file.name);
-                    $("#size").val("" + file.size);
+                    document.getElementById("size").value = archive.size;
+                    document.getElementById("nombre").value = archive.name;
+                    document.getElementById("ext").value = archive.name.split('.').pop();
+                    reader.readAsDataURL(archive);
 
                 });
-            });
+            }
         </script>
         <style>
             #filedrag
@@ -56,7 +56,7 @@
         </style>
     </head>
     <body>
-        Bienvenido, <s:property value="name"/>
+        Bienvenido, <s:property value="name"/> 
         <form id="upload" action="uploadaction" method="POST" enctype="multipart/form-data">
 
             <fieldset>
@@ -70,8 +70,10 @@
                     <input type="hidden" name="archivo" id="archivo"/>
                     <input type="hidden" name="nombre" id="nombre"/>
                     <input type="hidden" name="size" id="size"/>
+                    <input type="hidden" name="delete" id="delete" value = "" />
                     <input type="hidden" name="ext" id="ext"/>
-                    <input type="hidden" name="user" value=<s:property value="user"/>/>
+                    <input type="hidden" name="name" value="<s:property value="name"/>"/>
+                    <input type="hidden" name="user" value="<s:property value="user"/>"/>
                     <div id="filedrag">Arrastra un archivo para subirlo</div>
                 </div>
 
@@ -84,7 +86,26 @@
         </form>
 
         <div id="messages">
-            <p>Status Messages</p>
+
+            <h3>Archivos:</h3>  
+            <s:iterator  value="list">  
+                <fieldset>  
+                    <s:property value="nombre"/> <br>
+                    <s:property value="ext"/> <br>
+                    <s:property value="size"/> <br>
+                    <a href='<s:property value="archivo"/>' target="_blank">link</a>
+
+                    <form id="deleteaction" action="deleteaction" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="delete" id="delete" value = "<s:property value="nombre"/>" />
+                        <input type="hidden" name="name" value="<s:property value="name"/>"/>
+                        <input type="hidden" name="user" value="<s:property value="user"/>"/>
+                        <div id="submitbutton">
+                            <button type="submit">Borrar</button>
+                        </div>
+                    </form>
+                </fieldset>  
+            </s:iterator>  
+
         </div>
     </body>
 </html>
