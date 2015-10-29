@@ -1,3 +1,5 @@
-mx\itesm\maven\struts2\actions\RegisterAction.class
 mx\itesm\maven\struts2\actions\RegisterDao.class
+mx\itesm\maven\struts2\actions\RegisterAction.class
+mx\itesm\maven\struts2\actions\UploadAction.class
+mx\itesm\maven\struts2\actions\UploadDao.class
 mx\itesm\maven\struts2\actions\LoginAction.class

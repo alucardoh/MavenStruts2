@@ -9,28 +9,29 @@
 <html>
     <head>
         <title>Successful Login</title>
-         <script>
-	$("document").ready(function(){
-	    $("#filesect").change(function() {
-	    //archivo, ext, nombre, size
-	    	var file = $("#filesect").files[0];
+        <script>
+            $("document").ready(function () {
+                $("#filesect").change(function () {
+                    //archivo, ext, nombre, size
+                    var file = $("#filesect").files[0];
 
-	    	var reader = new FileReader();
-            reader.onload = (function(e) {
-                var archi = e.target.result + "";
-                $("#archivo").value=archi;
-                document.getElementById("submitbutton").hidden = false;
+                    var reader = new FileReader();
+                    reader.onload = (function (e) {
+                        var archi = e.target.result + "";
+                        $("#archivo").val(""+archi);
+                        document.getElementById("submitbutton").hidden = false;
+                        alert("Ya se cargó el archivo.")
+                    });
+                    document.getElementById("submitbutton").hidden = true;
+                    reader.readAsDataURL(file);
+
+                    $("#ext").val("" + file.name.split('.').pop());
+                    $("#nombre").val("" + file.name);
+                    $("#size").val("" + file.size);
+
+                });
             });
-            document.getElementById("submitbutton").hidden = true;
-            reader.readAsDataURL(file); 
-
-	    	$("#ext").val(""+file.name.split('.').pop());
-	    	$("#nombre").val(""+file.name);
-	    	$("#size").val(""+file.size);
-
-	    });
-	});
-</script>
+        </script>
         <style>
             #filedrag
             {
@@ -56,7 +57,7 @@
     </head>
     <body>
         Bienvenido, <s:property value="name"/>
-        <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
+        <form id="upload" action="uploadaction" method="POST" enctype="multipart/form-data">
 
             <fieldset>
                 <legend>Subir nuevo archivo</legend>
@@ -70,6 +71,7 @@
                     <input type="hidden" name="nombre" id="nombre"/>
                     <input type="hidden" name="size" id="size"/>
                     <input type="hidden" name="ext" id="ext"/>
+                    <input type="hidden" name="user" value=<s:property value="user"/>/>
                     <div id="filedrag">Arrastra un archivo para subirlo</div>
                 </div>
 

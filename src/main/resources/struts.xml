@@ -8,11 +8,6 @@
     <constant name="struts.configuration.xml.reload" value="true" />
   
     <package name="strutsbasico" extends="struts-default">
-        <action name="Recibe" class="mx.itesm.maven.struts2.actions.Registro"
-                method="execute">
-            <result name="success">/index.jsp</result>
-            <result name="error">/inex.jsp</result>
-        </action>
         
         <action name="loginaction" 
                 class="mx.itesm.maven.struts2.actions.LoginAction"
@@ -24,37 +19,12 @@
         <action name="register" class="mx.itesm.maven.struts2.actions.RegisterAction">  
             <result name="success">index.jsp</result>  
             <result name="error">register.jsp</result>  
-        </action>  
-        
-        <action name="view" class="mx.itesm.maven.struts2.actions.Display">
-            <result name="success">/retrive.jsp</result>
-            <result name="error">/error.jsp</result>
         </action>
- 
-        <action name="insert" class="mx.itesm.maven.struts2.actions.Save">
-            <result name="success">/ssuccess.jsp</result>
-            <result name="error">/error.jsp</result>
+        <action name="uploadaction" 
+                class="mx.itesm.maven.struts2.actions.UploadAction"
+                method="execute">
+            <result name="success">/success.jsp</result>
+            <result name="error">/success.jsp</result>
         </action>
- 
-        <action name="del" class="mx.itesm.maven.struts2.actions.Delete">
-            <result name="success">/dsuccess.jsp</result>
-            <result name="error">/error.jsp</result>
-        </action>
- 
-        <action name="update" class="mx.itesm.maven.struts2.actions.Update">
-            <result name="success">/edit.jsp</result>
-            <result name="error">/error.jsp</result>
-        </action>
- 
-        <action name="updates" class="mx.itesm.maven.struts2.actions.Updates">
-            <result name="success">/usuccess.jsp</result>
-            <result name="error">/error.jsp</result>
-        </action>
- 
-        <action name="*Link" class="mx.itesm.maven.struts2.actions.Links" method="{1}" >
-            <result name="save">/insertr.jsp</result>
-            <result name="display">/retrive.jsp</result>
-        </action>
-        
     </package>
 </struts>
